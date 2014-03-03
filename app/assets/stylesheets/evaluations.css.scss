@@ -8,6 +8,7 @@ body {
 
 #title {
   display: inline;
+  vertical-align: bottom;
 }
 
 #evaluations_search {
@@ -23,6 +24,10 @@ body {
 
 #search_box {
   display: inline;
+  width: 50%;
+  vertical-align: bottom;
+  height: 15px;
+  margin-left: 30px;
 }
 
 #title.center {
