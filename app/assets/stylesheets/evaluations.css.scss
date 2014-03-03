@@ -6,6 +6,38 @@ body {
   margin: 0;
 }
 
+#title {
+  display: inline;
+}
+
+#evaluations_search {
+  width: 50%;
+  display: inline;
+}
+
+#search_nav.show {
+  width: 100%;
+  padding: 10px;
+  background: rgb(241,241,241);
+}
+
+#search_box {
+  display: inline;
+}
+
+#title.center {
+  display: block;
+}
+
+#search_box.center {
+  width: 80%;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  margin-left: -40%;
+  height: 20px;
+}
+
 table {
   width: 100%;
   margin-bottom: 20px;

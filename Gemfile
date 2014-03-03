@@ -36,6 +36,10 @@ group :development, :test do
   gem 'rspec-rails', '~> 3.0.0.beta'
 end
 
+group :production do
+  gem 'rails_12factor'
+end
+
 gem 'factory_girl_rails'
 gem 'fastercsv'
 gem 'rails3-jquery-autocomplete'

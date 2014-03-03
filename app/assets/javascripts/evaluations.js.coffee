@@ -17,8 +17,13 @@ $ ->
     return false;
 
   $("#evaluations_search input").keyup ->
-    if($(this).val().length > 2)
+    $("#search_box, #title").removeClass("center");
+    $("#search_nav").addClass('show');
+    if($(this).val().length > 2 || $(this).val() == "")
       $.get($("#evaluations_search").attr('action'), $('#evaluations_search').serialize(), null, 'script');
       return false;
+
+  $("#evaluations_search").submit ->
+    return false
 
 
