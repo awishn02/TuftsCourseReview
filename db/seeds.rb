@@ -48,5 +48,9 @@ CSV.foreach("#{Rails.root}/student_evals_scrambled.csv") do |row|
       :course_score => row[12],
       :teacher_score => row[9][0]
     )
+    i += 1
+    if i == 9999
+      break
+    end
   end
 end
