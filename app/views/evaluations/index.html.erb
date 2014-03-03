@@ -1,0 +1,12 @@
+<!-- <h1>Listing evaluations</h1> -->
+<%= form_tag evaluations_path, :method => "get", :id => "evaluations_search" do %>
+
+  <p>
+    <%= text_field_tag :search, params[:search] %>
+  </p>
+  <div id="evaluations"><%= render 'evaluations' %></div>
+<% end %>
+
+<br>
+
+<%# <%= link_to 'New Evaluation', new_evaluation_path %>

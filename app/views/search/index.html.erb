@@ -1,0 +1,6 @@
+<%= javascript_include_tag "autocomplete-rails.js"%>
+<h1>Search</h1>
+
+<%= form_tag search_path, :method => 'get' do %>
+  <%= autocomplete_field_tag 'professor_name', '', search_autocomplete_professor_name_path, :size => 75 %>
+<%end%>
