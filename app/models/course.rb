@@ -10,6 +10,6 @@ class Course < ActiveRecord::Base
   end
 
   def get_score_for_professor(prof_id)
-    Evaluation.get_score_for_course_and_professor(prof_id)
+    Evaluation.get_score_for_course_and_professor(self.id,prof_id)
   end
 end

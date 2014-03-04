@@ -1,6 +1,9 @@
 class Evaluation < ActiveRecord::Base
   belongs_to :professor
   belongs_to :course
+  belongs_to :semester
+  validates_uniqueness_of :course_id, :scope => [:professor_id, :semester_id]
+
 
   def self.search(search)
     if search && search != ""

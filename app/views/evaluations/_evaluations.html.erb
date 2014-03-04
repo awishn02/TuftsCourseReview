@@ -7,6 +7,7 @@
       <th><%= sortable "courses.name", "Course Name" %></th>
       <th><%= sortable "courses.course_num", "Course Number" %></th>
       <th><%= sortable "professors.name", "Professor Name" %></th>
+      <th><%= sortable "semester.name", "Semester" %></th>
       <th><%= sortable "course_score" %></th>
       <th><%= sortable "teacher_score" %></th>
     </tr>
@@ -18,6 +19,7 @@
         <td><%= evaluation.course.name %></td>
         <td><%= evaluation.course.course_num %></td>
         <td><%= evaluation.professor.name %></td>
+        <td><%= evaluation.semester.name %></td>
         <td><%= evaluation.course_score %></td>
         <td><%= evaluation.teacher_score %></td>
         <!--<td><%= link_to 'Show', evaluation %></td>

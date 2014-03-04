@@ -7,6 +7,16 @@ class EvaluationsController < ApplicationController
   # GET /evaluations.json
   def index
     @evaluations = Evaluation.search(params[:search]).all(:include => [:course, :professor], :order => sort_column + ' ' + sort_direction).paginate(:per_page => 20, :page => params[:page])
+    # @evaluation_scores = Array.new(10000) { Array.new(10000)}
+    # @evaluations.each do |eval|
+    #   @evaluation_scores[eval.course_id][eval.professor_id] = {
+    #                                                             "course_name" => eval.course.name,
+    #                                                             "course_num" => eval.course.course_num,
+    #                                                             "professor_name" => eval.professor.name,
+    #                                                             "course_score" => eval.course.get_score_for_professor(eval.professor_id),
+    #                                                             "teacher_score" => eval.professor.get_score_for_course(eval.course_id)
+    #                                                           }
+    # end
   end
 
   # GET /evaluations/1

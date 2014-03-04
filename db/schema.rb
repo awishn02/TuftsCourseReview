@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140225230918) do
+ActiveRecord::Schema.define(version: 20140304015145) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -35,10 +35,12 @@ ActiveRecord::Schema.define(version: 20140225230918) do
   create_table "evaluations", force: true do |t|
     t.integer  "course_id"
     t.integer  "professor_id"
-    t.integer  "course_score"
-    t.integer  "teacher_score"
+    t.decimal  "course_score",  precision: 5, scale: 2
+    t.decimal  "teacher_score", precision: 5, scale: 2
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "semester_id"
+    t.integer  "total_reviews"
   end
 
   create_table "professors", force: true do |t|
@@ -49,6 +51,12 @@ ActiveRecord::Schema.define(version: 20140225230918) do
   end
 
   create_table "schools", force: true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "semesters", force: true do |t|
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
