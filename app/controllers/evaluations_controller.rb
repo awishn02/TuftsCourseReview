@@ -6,7 +6,17 @@ class EvaluationsController < ApplicationController
   # GET /evaluations
   # GET /evaluations.json
   def index
-    @evaluations = Evaluation.search(params[:search]).all(:include => [:course, :professor], :order => sort_column + ' ' + sort_direction).paginate(:per_page => 20, :page => params[:page])
+    # @evaluations = Evaluation.search(params[:search]).all(:include => [:course, :professor], :order => sort_column + ' ' + sort_direction)
+                             # .paginate(:per_page => 20, :page => params[:page])
+    @evaluations = Evaluation.select("AVG(evaluations.course_score) as average_course_score,"+
+                                     "AVG(evaluations.teacher_score) as average_teacher_score,"+
+                                     "evaluations.course_id AS course_id, courses.course_num AS "+
+                                     "course_num, courses.name")
+                             .group(['course_id','course_num','courses.name'])
+                             .search(params[:search])
+                             .joins(:course,:semester,:professor)
+                             .order(sort_column + ' ' + sort_direction)
+                             .paginate(:per_page => 20, :page => params[:page])
     # @evaluation_scores = Array.new(10000) { Array.new(10000)}
     # @evaluations.each do |eval|
     #   @evaluation_scores[eval.course_id][eval.professor_id] = {
@@ -85,7 +95,7 @@ class EvaluationsController < ApplicationController
     end
 
     def sort_column
-      Evaluation.column_names.include?(params[:sort]) || %w[courses.name professors.name courses.course_num].include?(params[:sort]) ? params[:sort] : "courses.course_num"
+      Evaluation.column_names.include?(params[:sort]) || %w[courses.name professors.name course_num semesters.name].include?(params[:sort]) ? params[:sort] : "course_num"
     end
 
     def sort_direction

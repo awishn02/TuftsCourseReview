@@ -44,6 +44,7 @@ gem 'factory_girl_rails'
 gem 'fastercsv'
 gem 'rails3-jquery-autocomplete'
 gem 'will_paginate'
+gem 'twitter-bootstrap-rails'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'

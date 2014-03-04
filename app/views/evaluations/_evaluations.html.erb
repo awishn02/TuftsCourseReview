@@ -1,35 +1,40 @@
 <%= hidden_field_tag :direction, params[:direction] %>
 <%= hidden_field_tag :sort, params[:sort] %>
+<div class="div_table">
 <% if @evaluations.length != 0 %>
-<table>
-  <thead>
-    <tr>
-      <th><%= sortable "courses.name", "Course Name" %></th>
-      <th><%= sortable "courses.course_num", "Course Number" %></th>
-      <th><%= sortable "professors.name", "Professor Name" %></th>
-      <th><%= sortable "semester.name", "Semester" %></th>
-      <th><%= sortable "course_score" %></th>
-      <th><%= sortable "teacher_score" %></th>
-    </tr>
-  </thead>
 
-  <tbody>
-    <% @evaluations.each do |evaluation| %>
-      <tr>
-        <td><%= evaluation.course.name %></td>
-        <td><%= evaluation.course.course_num %></td>
-        <td><%= evaluation.professor.name %></td>
-        <td><%= evaluation.semester.name %></td>
-        <td><%= evaluation.course_score %></td>
-        <td><%= evaluation.teacher_score %></td>
-        <!--<td><%= link_to 'Show', evaluation %></td>
-        <td><%= link_to 'Edit', edit_evaluation_path(evaluation) %></td>
-        <td><%= link_to 'Destroy', evaluation, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-        -->
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-<%= will_paginate @evaluations %>
+  <div class="row head_row">
+    <div class="col-md-2"><%= sortable "course_name", "Course Name" %></div>
+    <div class="col-md-2"><%= sortable "course_num", "Course Number" %></div>
+    <div class="col-md-2"><%= sortable "professors.name", "Professor Name" %></div>
+    <div class="col-md-2"><%= sortable "semesters.name", "Semester Name" %></div>
+    <div class="col-md-2"><%= sortable "course_score" %></div>
+    <div class="col-md-2"><%= sortable "teacher_score" %></div>
+  </div>
+  <% @evaluations.each do |evaluation| %>
+    <div class"outer-container">
+      <div class="row course_eval_row">
+        <div class="col-md-2"><%= evaluation.course.name %></div>
+        <div class="col-md-2"><%= evaluation.course_num %></div>
+        <div class="col-md-2">---</div>
+        <div class="col-md-2">---</div>
+        <div class="col-md-2"><%= evaluation.average_course_score.truncate(2) %></div>
+        <div class="col-md-2"><%= evaluation.average_teacher_score.truncate(2) %></div>
+      </div>
+      <div class="professor_rows" style="display:none;">
+        <% evaluation.get_professor_data.each do |profEval| %>
+          <div class="row professor_row">
+            <div class="col-md-2"><%= evaluation.course.name %></div>
+            <div class="col-md-2"><%= evaluation.course_num %></div>
+            <div class="col-md-2"><%= profEval.professor.name %></div>
+            <div class="col-md-2">---</div>
+            <div class="col-md-2"><%= profEval.average_course_score.truncate(2) %></div>
+            <div class="col-md-2"><%= profEval.average_teacher_score.truncate(2) %></div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  <%end %>
+  <%= will_paginate @evaluations %>
 <% end %>
-
+</div>

@@ -7,10 +7,25 @@ class Evaluation < ActiveRecord::Base
 
   def self.search(search)
     if search && search != ""
-      where('upper(courses.name) LIKE upper(?) OR upper(professors.name) LIKE upper(?) OR upper(courses.course_num) LIKE upper(?)', "%#{search}%", "%#{search}%", "%#{search}%")
+      where('upper(courses.name) LIKE upper(?) OR upper(professors.name)' +
+            ' LIKE upper(?) OR upper(courses.course_num) LIKE upper(?)',
+            "%#{search}%", "%#{search}%", "%#{search}%")
     else
       where('1=0')
     end
+  end
+
+  def get_professor_data
+    Evaluation.select("AVG(evaluations.course_score) as average_course_score,"+
+                      "AVG(evaluations.teacher_score) as average_teacher_score,"+
+                      "evaluations.course_id AS course_id, courses.course_num AS "+
+                      "course_num, courses.name, evaluations.professor_id AS professor_id,"+
+                      "professors.name")
+              .group(['course_id','course_num','courses.name','professor_id','professors.name'])
+              .where('course_id = ?', self.course_id)
+              .joins(:course,:semester,:professor)
+              .order("course_num asc")
+              .paginate(:per_page => 20, :page => 1)
   end
 
   def self.get_score_for_professor(id)

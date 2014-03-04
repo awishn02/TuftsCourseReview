@@ -1,7 +1,7 @@
 <%= form_tag evaluations_path, :method => "get", :id => "evaluations_search" do %>
 
   <div id="search_nav">
-<h1 class="center" id="title">Listing evaluations</h1>
+    <h1 class="center" id="title">Tufts Course Review</h1>
     <%= text_field_tag :search, params[:search], :id => "search_box", :class => "center" %>
   </div>
   <div id="evaluations"><%= render 'evaluations' %></div>
