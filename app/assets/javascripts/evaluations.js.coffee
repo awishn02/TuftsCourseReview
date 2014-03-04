@@ -27,6 +27,7 @@ $ ->
     return false
 
   $("body").on 'click', '.div_table .course_eval_row', ->
+    # $("div.professor_rows").slideUp();
     $(this).parent().find('div.professor_rows').slideToggle();
 
 
