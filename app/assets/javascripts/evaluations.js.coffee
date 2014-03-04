@@ -12,18 +12,21 @@
 #     return false;
 
 $ ->
-  $("body").on 'click', '#evaluations th a, #evaluations .pagination a', ->
+  $("body").on 'click', '#evaluations .head_row a, #evaluations .pagination a', ->
     $.getScript(this.href);
     return false;
 
   $("#evaluations_search input").keyup ->
     $("#search_box, #title").removeClass("center");
     $("#search_nav").addClass('show');
-    if($(this).val().length > 2 || $(this).val() == "")
+    if($(this).val().length > 1 || $(this).val() == "")
       $.get($("#evaluations_search").attr('action'), $('#evaluations_search').serialize(), null, 'script');
       return false;
 
   $("#evaluations_search").submit ->
     return false
+
+  $("body").on 'click', '.div_table .course_eval_row', ->
+    $(this).parent().find('div.professor_rows').slideToggle();
 
 
