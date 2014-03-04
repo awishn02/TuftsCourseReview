@@ -9,6 +9,7 @@ class Professor < ActiveRecord::Base
   end
 
   def get_score_for_course(course_id)
+    puts course_id, self.id
     Evaluation.get_score_for_professor_and_course(self.id, course_id)
   end
 end
