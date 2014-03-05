@@ -66,6 +66,7 @@ $ ->
         ]
     }
     new Chart(ctx).Line(data,{});
+    $("#"+legend_id).empty();
     legend(document.getElementById(legend_id),data);
 
 
