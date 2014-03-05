@@ -38,7 +38,7 @@
                 <div class="modal-content">
                   <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h4 class="modal-title" id="myModalLabel"><%= profEval.professor.name %></h4>
+                    <h4 class="modal-title" id="myModalLabel"><b><%= profEval.professor.name %></b>: <%= evaluation.course.name %></h4>
                   </div>
                   <div class="modal-body">
                     <canvas id="chart-<%= evaluation.course_id %>-<%= profEval.professor_id %>" width="600" height="400"></canvas>
