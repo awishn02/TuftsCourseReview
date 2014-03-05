@@ -29,10 +29,26 @@ $ ->
   $("body").on 'click', '.div_table .course_eval_row', ->
     $(this).parent().find('div.professor_rows').slideToggle();
 
+  sortByTerm = (a,b) ->
+    yearA = a[0].split(" ")[1]
+    yearB = b[0].split(" ")[1]
+    if yearA < yearB
+      return -1
+    if yearA > yearB
+      return 1
+    termA = a[0].split(" ")[0]
+    termB = b[0].split(" ")[0]
+    if termA == termB
+      return 0
+    if termA == "Fall"
+      return -1
+    return 1
+
   $("body").on 'click', '.professor_row_link', ->
     chart_id = $(this).data('chart-id');
     chart_data = $(this).data('chart-data');
     legend_id = $(this).data('legend-id');
+    chart_data.sort(sortByTerm);
     ctx = $(chart_id).get(0).getContext("2d");
     labels = [];
     course_scores = [];
@@ -41,9 +57,15 @@ $ ->
       labels.push(value[0]);
       course_scores.push(parseFloat(value[1]));
       teacher_scores.push(parseFloat(value[2]));
-    labels.push("Fall 2014");
-    course_scores.push(1.54);
-    teacher_scores.push(3.41);
+
+    ###################################################
+    #  DONT FORGET THAT YOU ARE ADDING THIS FAKE DATA #
+    labels.push("Fall 2014");                         #
+    course_scores.push(1.54);                         #
+    teacher_scores.push(3.41);                        #
+    #                                                 #
+    #                  END FAKE DATA                  #
+    ###################################################
     data = {
       labels : labels,
       datasets : [
