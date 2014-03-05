@@ -63,9 +63,5 @@ CSV.foreach("#{Rails.root}/student_evals_scrambled.csv") do |row|
       evaluation.total_reviews += 1
       evaluation.save
     end
-    i += 1
-    if i == 9999
-      break
-    end
   end
 end
