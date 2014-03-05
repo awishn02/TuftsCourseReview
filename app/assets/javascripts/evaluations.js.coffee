@@ -32,6 +32,7 @@ $ ->
   $("body").on 'click', '.professor_row_link', ->
     chart_id = $(this).data('chart-id');
     chart_data = $(this).data('chart-data');
+    legend_id = $(this).data('legend-id');
     ctx = $(chart_id).get(0).getContext("2d");
     labels = [];
     course_scores = [];
@@ -51,17 +52,20 @@ $ ->
                 strokeColor : "rgba(143,119,69,1)",
                 pointColor : "rgba(143,119,69,1)",
                 pointStrokeColor : "#fff",
-                data : course_scores
+                data : course_scores,
+                title: 'Course Score'
               },
               {
                 fillColor : "rgba(151,187,205,0.5)",
                 strokeColor : "rgba(151,187,205,1)",
                 pointColor : "rgba(151,187,205,1)",
                 pointStrokeColor : "#fff",
-                data : teacher_scores
+                data : teacher_scores,
+                title: 'Teacher Score'
               }
         ]
     }
     new Chart(ctx).Line(data,{});
+    legend(document.getElementById(legend_id),data);
 
 
