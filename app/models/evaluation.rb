@@ -24,8 +24,16 @@ class Evaluation < ActiveRecord::Base
               .group(['course_id','course_num','courses.name','professor_id','professors.name'])
               .where('course_id = ?', self.course_id)
               .joins(:course,:semester,:professor)
-              .order("course_num asc")
-              .paginate(:per_page => 20, :page => 1)
+  end
+
+  def get_semester_data
+    Evaluation.select("AVG(evaluations.course_score) as average_course_score,"+
+                     "AVG(evaluations.teacher_score) as average_teacher_score,"+
+                     "evaluations.course_id AS course_id, evaluations.professor_id AS professor_id,"+
+                     "evaluations.semester_id AS semester_id")
+              .group(['course_id','professor_id','semester_id'])
+              .where('course_id = ? AND professor_id = ?', self.course_id, self.professor_id)
+              .joins(:course,:semester,:professor)
   end
 
   def self.get_score_for_professor(id)

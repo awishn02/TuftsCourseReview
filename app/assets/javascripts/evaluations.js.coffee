@@ -24,10 +24,44 @@ $ ->
       return false;
 
   $("#evaluations_search").submit ->
-    return false
+    return false;
 
   $("body").on 'click', '.div_table .course_eval_row', ->
-    # $("div.professor_rows").slideUp();
     $(this).parent().find('div.professor_rows').slideToggle();
+
+  $("body").on 'click', '.professor_row_link', ->
+    chart_id = $(this).data('chart-id');
+    chart_data = $(this).data('chart-data');
+    ctx = $(chart_id).get(0).getContext("2d");
+    labels = [];
+    course_scores = [];
+    teacher_scores = [];
+    $.each chart_data, (index, value)->
+      labels.push(value[0]);
+      course_scores.push(parseFloat(value[1]));
+      teacher_scores.push(parseFloat(value[2]));
+    labels.push("Fall 2014");
+    course_scores.push(1.54);
+    teacher_scores.push(3.41);
+    data = {
+      labels : labels,
+      datasets : [
+              {
+                fillColor : "rgba(143,119,69,0.5)",
+                strokeColor : "rgba(143,119,69,1)",
+                pointColor : "rgba(143,119,69,1)",
+                pointStrokeColor : "#fff",
+                data : course_scores
+              },
+              {
+                fillColor : "rgba(151,187,205,0.5)",
+                strokeColor : "rgba(151,187,205,1)",
+                pointColor : "rgba(151,187,205,1)",
+                pointStrokeColor : "#fff",
+                data : teacher_scores
+              }
+        ]
+    }
+    new Chart(ctx).Line(data,{});
 
 

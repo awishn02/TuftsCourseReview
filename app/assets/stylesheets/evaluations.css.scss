@@ -180,3 +180,9 @@ body {
   clear: both;
   visibility: hidden;
 }
+
+canvas {
+  width: 100%;
+  max-width: 100%;
+  min-width: 100%;
+}
