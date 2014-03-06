@@ -19,6 +19,7 @@ $ ->
   $("#evaluations_search input").keyup ->
     $("#search_box, #title").removeClass("center");
     $("#search_nav").addClass('show');
+    $(".alert").addClass('hide');
     if($(this).val().length > 1 || $(this).val() == "")
       $.get($("#evaluations_search").attr('action'), $('#evaluations_search').serialize(), null, 'script');
       return false;

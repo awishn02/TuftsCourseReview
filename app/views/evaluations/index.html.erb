@@ -1,8 +1,10 @@
 <%= form_tag evaluations_path, :method => "get", :id => "evaluations_search" do %>
-
-  <div id="search_nav">
-    <h1 class="center" id="title">Tufts Course Review</h1>
-    <%= text_field_tag :search, params[:search], :id => "search_box", :class => "center" %>
+  <div id="search_nav" class="show">
+    <h1 id="title">Tufts Course Review</h1>
+    <%= text_field_tag :search, params[:search], :id => "search_box" %>
+  </div>
+  <div class="container">
+    <div class="alert alert-info"><strong>NOTE:</strong> This is not real data and is in no way indicative of actual course evaluations.</div>
   </div>
   <div id="evaluations"><%= render 'evaluations' %></div>
 <% end %>
