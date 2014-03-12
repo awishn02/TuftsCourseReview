@@ -14,7 +14,7 @@ class EvaluationsController < ApplicationController
                                .group(['professor_id','professors.name'])
                                .search(params[:search])
                                .joins(:course,:semester,:professor)
-                               .order('professors.name' + ' ' + sort_direction)
+                               .order(sort_column_prof + ' ' + sort_direction)
                                .paginate(:per_page => 20, :page => params[:page])
     else
       @evaluations = Evaluation.select("AVG(evaluations.course_score) as average_course_score,"+
@@ -95,7 +95,11 @@ class EvaluationsController < ApplicationController
     end
 
     def sort_column
-      Evaluation.column_names.include?(params[:sort]) || %w[courses.name professors.name course_num semesters.name].include?(params[:sort]) ? params[:sort] : "course_num"
+      Evaluation.column_names.include?(params[:sort]) || %w[courses.name professors.name course_num semesters.name average_course_score average_teacher_score].include?(params[:sort]) ? params[:sort] : "course_num"
+    end
+
+    def sort_column_prof
+      Evaluation.column_names.include?(params[:sort]) || %w[courses.name professors.name course_num semesters.name average_course_score average_teacher_score].include?(params[:sort]) ? params[:sort] : "professors.name"
     end
 
     def sort_direction
