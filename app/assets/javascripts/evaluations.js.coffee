@@ -25,9 +25,10 @@ $ ->
       return false
 
   $("body").on 'click', '.button-group-item', ->
-    $("#search_box").val('')
+    # $("#search_box").val('')
+    search_text = $("#search_box").val()
     $(".button-group-item").toggleClass('active')
-    $.getScript(this.href)
+    $.getScript(this.href+"&search="+search_text)
     return false
 
   $("#evaluations_search").submit ->
