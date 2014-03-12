@@ -2,6 +2,10 @@
   <div id="search_nav" class="show">
     <h1 id="title">Tufts Course Review</h1>
     <%= text_field_tag :search, params[:search], :id => "search_box" %>
+    <div class="button-group">
+      <%= link_to "Professor",{ :main_column => "Professor" },  :class => "button-group-item"  %>
+      <%= link_to "Course",{ :main_column => "Course" },  :class => "button-group-item active"  %>
+    </div>
   </div>
   <div class="container">
     <div class="alert alert-info"><strong>NOTE:</strong> This is not real data and is in no way indicative of actual course evaluations.</div>
