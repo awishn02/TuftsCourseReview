@@ -39,6 +39,43 @@ body {
   border-style: none;
 }
 
+.button-group {
+  display: inline;
+  margin-right: 40px;
+}
+
+.button-group-item {
+  float: right;
+  margin: 0;
+  border: 3px solid #336ca6;
+  color: #336ca6;
+  padding: 5px 7px;
+  background: white;
+}
+
+.button-group-item:hover {
+  color: #336ca6;
+  background: white;
+  text-decoration: none;
+}
+
+.button-group-item.active:hover {
+  background: #336ca6;
+}
+
+.button-group-item.active {
+  background: #336ca6;
+  color: white;
+}
+
+.button-group-item:last-child {
+  border-right: 0px;
+}
+
+.button-group-item:focus {
+  outline: none;
+}
+
 #title.center {
   display: block;
   vertical-align: middle;
