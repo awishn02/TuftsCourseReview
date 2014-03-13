@@ -7,9 +7,9 @@
     <div class="row head_row">
       <div class="col-md-3"><%= sortable "course_name", "Course Name" %></div>
       <div class="col-md-2"><%= sortable "course_num", "Course Number" %></div>
-      <div class="col-md-3"><%= sortable "professors.name", "Professor Name" %></div>
+      <div class="col-md-3"><%= sortable "professors.name", "Instructor" %></div>
       <div class="col-md-2"><%= sortable "average_course_score", "Course Score" %></div>
-      <div class="col-md-2"><%= sortable "average_teacher_score", "Professor Score" %></div>
+      <div class="col-md-2"><%= sortable "average_teacher_score", "Instructor Score" %></div>
     </div>
     <% if params[:main_column] == "Professor" %>
       <% @evaluations.each do |evaluation| %>
