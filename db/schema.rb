@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140304015145) do
+ActiveRecord::Schema.define(version: 20140325152917) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -30,6 +30,7 @@ ActiveRecord::Schema.define(version: 20140304015145) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "dep_code"
+    t.boolean  "opt_out",    default: true
   end
 
   create_table "evaluations", force: true do |t|
