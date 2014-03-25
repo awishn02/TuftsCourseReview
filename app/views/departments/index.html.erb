@@ -5,6 +5,7 @@
     <tr>
       <th>Name</th>
       <th>Code</th>
+      <th>Opt Out</th>
       <th></th>
       <th></th>
     </tr>
@@ -15,9 +16,9 @@
       <tr>
         <td><%= department.name %></td>
         <td><%= department.dep_code %></td>
+        <td><%= department.opt_out %></td>
         <td><%= link_to 'Show', department %></td>
         <td><%= link_to 'Edit', edit_department_path(department) %></td>
-        <td><%= link_to 'Destroy', department, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>

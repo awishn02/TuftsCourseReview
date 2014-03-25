@@ -4,7 +4,7 @@ class DepartmentsController < ApplicationController
   # GET /departments
   # GET /departments.json
   def index
-    @departments = Department.all
+    @departments = Department.all.order(:name)
   end
 
   # GET /departments/1
@@ -69,6 +69,6 @@ class DepartmentsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def department_params
-      params.require(:department).permit(:name)
+      params.require(:department).permit(:name, :opt_out)
     end
 end
