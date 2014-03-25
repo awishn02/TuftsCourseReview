@@ -6,6 +6,7 @@ class EvaluationsController < ApplicationController
   # GET /evaluations
   # GET /evaluations.json
   def index
+    @admin = true
     if params[:main_column] == "Professor"
       @evaluations = Evaluation.select("AVG(evaluations.course_score) as average_course_score,"+
                                        "AVG(evaluations.teacher_score) as average_teacher_score,"+
