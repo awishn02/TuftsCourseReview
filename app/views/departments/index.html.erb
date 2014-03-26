@@ -4,15 +4,15 @@
   <div class="row head_row">
     <div class="col-md-3">Name</div>
     <div class="col-md-3">Code</div>
-    <div class="col-md-3">Opt Out</div>
+    <div class="col-md-3">Opting Out?</div>
     <div></div>
   </div>
   <% @departments.each do |department| %>
     <div class="row course_eval_row">
       <div class="col-md-3"><%= department.name %></div>
       <div class="col-md-3"><%= department.dep_code %></div>
-      <div class="col-md-3"><%= department.opt_out %></div>
-      <div class="col-md-3"><%= link_to 'Edit', edit_department_path(department), :class => "btn btn-danger"%></div>
+      <div class="col-md-3"><%= department.opt_out ? "Yes" : "No" %></div>
+      <div class="col-md-3"><%= link_to 'Opt Out', edit_department_path(department), :class => "btn btn-danger opt_out_link", "data-target" => department.id, "data-opt_out" => department.opt_out %></div>
     </div>
   <% end %>
 </div>

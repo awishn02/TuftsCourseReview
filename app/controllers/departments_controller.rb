@@ -41,6 +41,7 @@ class DepartmentsController < ApplicationController
   # PATCH/PUT /departments/1.json
   def update
     respond_to do |format|
+      puts department_params
       if @department.update(department_params)
         format.html { redirect_to @department, notice: 'Department was successfully updated.' }
         format.json { head :no_content }
