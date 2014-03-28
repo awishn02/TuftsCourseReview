@@ -4,7 +4,7 @@ class ProfessorsController < ApplicationController
   # GET /professors
   # GET /professors.json
   def index
-    @professors = Professor.all
+    @professors = Professor.all.order(:name)
   end
 
   # GET /professors/1
@@ -69,6 +69,6 @@ class ProfessorsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def professor_params
-      params.require(:professor).permit(:name, :department_id)
+      params.require(:professor).permit(:name, :department_id, :opt_out)
     end
 end

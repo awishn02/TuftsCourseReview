@@ -13,7 +13,7 @@
     </div>
     <% if params[:main_column] == "Professor" %>
       <% @evaluations.each do |evaluation| %>
-        <% if evaluation.professor.department.opt_out == FALSE %>
+        <% if evaluation.professor.department.opt_out == FALSE && evaluation.professor.opt_out == FALSE %>
           <div class="outer-container">
             <div class="row course_eval_row">
               <div class="col-md-3">---</div>
@@ -60,7 +60,7 @@
       <% end %>
     <% else %>
       <% @evaluations.each do |evaluation| %>
-        <% if evaluation.course.department.opt_out == FALSE %>
+        <% if evaluation.course.department.opt_out == FALSE && evaluation.get_professor_data.length == 1 && evaluation.get_professor_data[0].professor.opt_out == FALSE%>
           <div class"outer-container">
             <div class="row course_eval_row">
               <div class="col-md-3"><%= evaluation.course.name %></div>

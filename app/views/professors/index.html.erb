@@ -1,29 +1,17 @@
 <h1>Listing professors</h1>
 
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Department</th>
-      <th></th>
-      <th></th>
-      <th></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @professors.each do |professor| %>
-      <tr>
-        <td><%= professor.name %></td>
-        <td><%= professor.department_id %></td>
-        <td><%= link_to 'Show', professor %></td>
-        <td><%= link_to 'Edit', edit_professor_path(professor) %></td>
-        <td><%= link_to 'Destroy', professor, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<br>
-
-<%= link_to 'New Professor', new_professor_path %>
+<div class="div_table">
+  <div class="row head_row">
+    <div class="col-md-3">Name</div>
+    <div class="col-md-3">Department</div>
+    <div class="col-md-3">Opting Out?</div>
+  </div>
+  <% @professors.each do |professor| %>
+    <div class="row course_eval_row">
+      <div class="col-md-3"><%= professor.name %></div>
+      <div class="col-md-3"><%= professor.department.name %></div>
+      <div class="col-md-3"><%= professor.opt_out ? "Yes": "No" %></div>
+      <div class="col-md-3"><%= link_to 'Opt Out', edit_professor_path(professor), :class => "btn btn-danger opt_out_link", "data-target" => professor.id, "data-opt_out" => professor.opt_out %></div>
+    </div>
+  <% end %>
+</div>
