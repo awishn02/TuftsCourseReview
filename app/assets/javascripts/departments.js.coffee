@@ -3,7 +3,7 @@
 # You can use CoffeeScript in this file: http://coffeescript.org/
 #
 $ ->
-  $(".opt_out_link").click ->
+  $("#departments .opt_out_link").click ->
     target_id = $(this).data 'target'
     target_opt_out = !$(this).data 'opt_out'
     $.ajax '/departments/'+target_id,

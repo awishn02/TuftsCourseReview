@@ -2,7 +2,7 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
 $ ->
-  $(".opt_out_link").click ->
+  $("#professors .opt_out_link").click ->
     target_id = $(this).data 'target'
     target_opt_out = !$(this).data 'opt_out'
     $.ajax '/professors/'+target_id,
