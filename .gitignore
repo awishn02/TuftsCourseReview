@@ -14,4 +14,4 @@
 # Ignore all logfiles and tempfiles.
 /log/*.log
 /tmp
-student_evals_scrambled.csv
+# student_evals_scrambled.csv

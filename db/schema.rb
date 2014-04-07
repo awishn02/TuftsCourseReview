@@ -11,10 +11,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140328193059) do
+ActiveRecord::Schema.define(version: 20140407014554) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "course_scores", force: true do |t|
+    t.integer  "professor_id"
+    t.integer  "course_id"
+    t.integer  "semester_id"
+    t.decimal  "score"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "total_reviews"
+  end
 
   create_table "courses", force: true do |t|
     t.integer  "department_id"
@@ -44,12 +54,23 @@ ActiveRecord::Schema.define(version: 20140328193059) do
     t.integer  "total_reviews"
   end
 
+  create_table "professor_scores", force: true do |t|
+    t.integer  "professor_id"
+    t.integer  "course_id"
+    t.integer  "semester_id"
+    t.decimal  "score"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "total_reviews"
+  end
+
   create_table "professors", force: true do |t|
     t.string   "name"
     t.integer  "department_id"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "opt_out",       default: false
+    t.string   "utln"
   end
 
   create_table "schools", force: true do |t|

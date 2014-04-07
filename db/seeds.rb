@@ -6,6 +6,17 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 require 'csv'
+DEP_NAME = 1
+DEP_CODE = 2
+SCHOOL_NAME = 7
+SEMESTER_NAME = 7
+COURSE_NAME = 3
+COURSE_NUM = 2
+PROFESSOR_NAME = 4
+PROFESSOR_UTLN = 9
+QUESTION = 8
+SCORE = 12
+
 first = true
 i = 0
 CSV.foreach("#{Rails.root}/student_evals_scrambled.csv") do |row|
@@ -13,55 +24,78 @@ CSV.foreach("#{Rails.root}/student_evals_scrambled.csv") do |row|
     first = false
   else
     dep = Department.create(
-      :name => row[1],
-      :dep_code => row[2].split('-')[0]
+      :name => row[DEP_NAME],
+      :dep_code => row[DEP_CODE].split('-')[0],
+      :opt_out => false
     )
     if !dep.id
-      dep = Department.find_by_name(row[1])
+      dep = Department.find_by_name(row[DEP_NAME])
     end
     school = School.create(
-      :name => row[7].split(' - ')[1]
+      :name => row[SCHOOL_NAME].split(' - ')[1]
     )
     if !school.id
-      school = School.find_by_name(row[7].split(' - ')[1])
+      school = School.find_by_name(row[SCHOOL_NAME].split(' - ')[1])
     end
     semester = Semester.create(
-      :name => row[7][/(\s*\S+){2}/]
+      :name => row[SEMESTER_NAME][/(\s*\S+){2}/]
     )
     if !semester.id
-      semester = Semester.find_by_name(row[7][/(\s*\S+){2}/])
+      semester = Semester.find_by_name(row[SEMESTER_NAME][/(\s*\S+){2}/])
     end
     course = Course.create(
-      :name => row[3],
+      :name => row[COURSE_NAME],
       :department_id => dep.id,
       :school_id => school.id,
-      :course_num => row[2]
+      :course_num => row[COURSE_NUM]
     )
     if !course.id
-      course = Course.find_by_name(row[3])
+      course = Course.find_by_course_num(row[COURSE_NUM])
     end
-    prof_name = row[4].split(',')
+    prof_name = "N/A"
+    if row[PROFESSOR_NAME]
+      prof_name = row[PROFESSOR_NAME].split(',')
+    end
     professor = Professor.create(
       :name => prof_name[1] + " " + prof_name[0],
-      :department_id => dep.id
+      :department_id => dep.id,
+      :utln => row[PROFESSOR_UTLN],
+      :opt_out => false
     )
     if !professor.id
-      professor = Professor.find_by_name(prof_name[1] + " " + prof_name[0])
+      professor = Professor.find_by_utln(row[PROFESSOR_UTLN])
     end
-    evaluation = Evaluation.create(
-      :course_id => course.id,
-      :professor_id => professor.id,
-      :semester_id => semester.id,
-      :course_score => row[12],
-      :teacher_score => row[9][0],
-      :total_reviews => 1
-    )
-    if !evaluation.id
-      evaluation = Evaluation.find_by_course_id_and_professor_id_and_semester_id(course.id, professor.id, semester.id)
-      evaluation.course_score = (evaluation.course_score * evaluation.total_reviews + row[12].to_f) / (evaluation.total_reviews + 1)
-      evaluation.teacher_score = (evaluation.teacher_score * evaluation.total_reviews + row[9][0].to_f) / (evaluation.total_reviews + 1)
-      evaluation.total_reviews += 1
-      evaluation.save
+    if row[8].include? "instructor"
+      p = ProfessorScore.create(
+        :professor_id => professor.id,
+        :course_id => course.id,
+        :semester_id => semester.id,
+        :score => row[SCORE],
+        :total_reviews => 1
+      )
+      if !p.id
+        p = ProfessorScore.find_by_course_id_and_professor_id_and_semester_id(course.id, professor.id, semester.id)
+        p.score = (p.score * p.total_reviews + row[SCORE].to_f) / (p.total_reviews + 1)
+        p.total_reviews += 1
+        p.save
+      end
+    else
+      c = CourseScore.create(
+        :professor_id => professor.id,
+        :course_id => course.id,
+        :semester_id => semester.id,
+        :score => row[SCORE],
+        :total_reviews => 1
+      )
+
+      if !c.id
+        c = CourseScore.find_by_course_id_and_professor_id_and_semester_id(course.id, professor.id, semester.id)
+        c.score = (c.score * c.total_reviews + row[SCORE].to_f) / (c.total_reviews + 1)
+        c.total_reviews += 1
+        c.save
+      end
     end
   end
+  i += 1
 end
+puts i

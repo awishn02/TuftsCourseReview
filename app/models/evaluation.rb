@@ -22,9 +22,9 @@ class Evaluation < ActiveRecord::Base
                       "evaluations.course_id AS course_id, courses.course_num AS "+
                       "course_num, courses.name, evaluations.professor_id AS professor_id,"+
                       "professors.name")
-              .group(['course_id','course_num','courses.name','professor_id','professors.name'])
-              .where('course_id = ?', self.course_id)
-              .joins(:course,:semester,:professor)
+    .group(['course_id','course_num','courses.name','professor_id','professors.name'])
+    .where('course_id = ?', self.course_id)
+    .joins(:course,:semester,:professor)
   end
 
 
@@ -34,19 +34,28 @@ class Evaluation < ActiveRecord::Base
                       "evaluations.course_id AS course_id, courses.course_num AS "+
                       "course_num, courses.name, evaluations.professor_id AS professor_id,"+
                       "professors.name")
-              .group(['course_id','course_num','courses.name','professor_id','professors.name'])
-              .where('professor_id = ?', self.professor_id)
-              .joins(:course,:semester,:professor)
+    .group(['course_id','course_num','courses.name','professor_id','professors.name'])
+    .where('professor_id = ?', self.professor_id)
+    .joins(:course,:semester,:professor)
   end
 
   def get_semester_data
     Evaluation.select("AVG(evaluations.course_score) as average_course_score,"+
-                     "AVG(evaluations.teacher_score) as average_teacher_score,"+
-                     "evaluations.course_id AS course_id, evaluations.professor_id AS professor_id,"+
-                     "evaluations.semester_id AS semester_id")
-              .group(['course_id','professor_id','semester_id'])
-              .where('course_id = ? AND professor_id = ?', self.course_id, self.professor_id)
-              .joins(:course,:semester,:professor)
+                      "AVG(evaluations.teacher_score) as average_teacher_score,"+
+                      "evaluations.course_id AS course_id, evaluations.professor_id AS professor_id,"+
+                      "evaluations.semester_id AS semester_id")
+    .group(['course_id','professor_id','semester_id'])
+    .where('course_id = ? AND professor_id = ?', self.course_id, self.professor_id)
+    .joins(:course,:semester,:professor)
+  end
+
+  def get_eval_data_for_professor
+    Evaluation.select("AVG(evaluations.course_score) as average_course_score,"+
+                      "AVG(evaluations.teacher_score) as average_teacher_score,"+
+                      "evaluations.professor_id AS professor_id,"+
+                      "professors.name")
+    .group(['professor_id','professors.name'])
+    .joins(:course,:semester,:professor)
   end
 
   def self.get_score_for_professor(id)

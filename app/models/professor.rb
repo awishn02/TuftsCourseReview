@@ -2,7 +2,7 @@ class Professor < ActiveRecord::Base
   belongs_to :department
   has_many :evaluations
   has_many :courses, through: :evaluations
-  validates :name, uniqueness: true
+  validates :utln, uniqueness: true
 
   def get_score
     Evaluation.get_score_for_professor(self.id)

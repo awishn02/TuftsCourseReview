@@ -50,8 +50,8 @@ $ ->
     if termA == termB
       return 0
     if termA == "Fall"
-      return -1
-    return 1
+      return 1
+    return -1
 
   $("body").on 'click', '.professor_row_link', ->
     chart_id = $(this).data('chart-id')
@@ -67,14 +67,6 @@ $ ->
       course_scores.push(parseFloat(value[1]))
       teacher_scores.push(parseFloat(value[2]))
 
-    ###################################################
-    #  DONT FORGET THAT YOU ARE ADDING THIS FAKE DATA #
-    labels.push("Fall 2014")                         #
-    course_scores.push(1.54)                         #
-    teacher_scores.push(3.41)                        #
-    #                                                 #
-    #                  END FAKE DATA                  #
-    ###################################################
     data = {
       labels : labels,
       datasets : [
