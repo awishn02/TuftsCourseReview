@@ -31,7 +31,9 @@ $ ->
     $("#search_nav").addClass('show')
     $(".alert").addClass('hide')
     if($("#search_box").val().length > 1 || $("#search_box").val() == "")
+      $(".spinner").removeClass 'hide'
       $.get($("#evaluations_search").attr('action'), $('#evaluations_search').serialize(), null, 'script')
+      $(".spinner").addClass 'hide'
       return false
 
   $("body").on 'click', '.button-group-item', ->
