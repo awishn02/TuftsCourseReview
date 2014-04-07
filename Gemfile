@@ -47,6 +47,9 @@ gem 'will_paginate'
 gem 'twitter-bootstrap-rails'
 gem 'simplecov', :require => false, :group => :test
 
+gem 'dalli'
+gem 'memcachier'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
 
