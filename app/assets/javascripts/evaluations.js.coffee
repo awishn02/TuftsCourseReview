@@ -18,6 +18,7 @@ $ ->
 
   typingTimer = 0
   doneTypingInterval = 500
+  prevSearch = ""
 
   $("#evaluations_search input").keyup ->
     clearTimeout typingTimer
@@ -30,7 +31,8 @@ $ ->
     $("#search_box, #title").removeClass("center")
     $("#search_nav").addClass('show')
     $(".alert").addClass('hide')
-    if($("#search_box").val().length > 1 || $("#search_box").val() == "")
+    if(($("#search_box").val().length > 1 || $("#search_box").val() == "") && $("#search_box").val() != prevSearch)
+      prevSearch = $("#search_box").val()
       $("#evaluations").fadeToggle("fast", ->
         $(".spinner").removeClass 'hide'
       )
