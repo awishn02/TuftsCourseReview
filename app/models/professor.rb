@@ -1,6 +1,8 @@
 class Professor < ActiveRecord::Base
   belongs_to :department
   has_many :evaluations
+  has_many :professor_scores
+  has_many :course_scores
   has_many :courses, through: :evaluations
   validates :utln, uniqueness: true
 

@@ -6,52 +6,14 @@ class EvaluationsController < ApplicationController
   # GET /evaluations
   # GET /evaluations.json
   def index
-    @admin = true
     if params[:main_column] == "Professor"
-      # @evaluations = Evaluation.select("AVG(evaluations.course_score) as average_course_score,"+
-      #                                  "AVG(evaluations.teacher_score) as average_teacher_score,"+
-      #                                  "evaluations.professor_id AS professor_id,"+
-      #                                  "professors.name")
-      #                          .group(['professor_id','professors.name'])
-      #                          .search(params[:search])
-      #                          .joins(:course,:semester,:professor)
-      #                          .order(sort_column_prof + ' ' + sort_direction)
-      #                          .paginate(:per_page => 20, :page => params[:page])
-      @evaluations = ProfessorScore.select("AVG(professor_scores.score) as average_professor_score,"+
-                                           "AVG(course_scores.score) as average_course_score,"+
-                                           "professor_scores.professor_id, professors.utln")
-                                   .group(['professor_scores.professor_id', 'professors.utln'])
-                                   .search(params[:search])
-                                   .joins("INNER JOIN course_scores ON professor_scores.professor_id "+
-                                          "= course_scores.professor_id and professor_scores.course_id "+
-                                          "= course_scores.course_id and professor_scores.semester_id ="+
-                                          " course_scores.semester_id")
-                                   .joins(:professor,:course,:semester)
+      @evaluations = ProfessorScore.search(params[:search])
                                    .order(sort_column_prof + ' ' + sort_direction)
                                    .paginate(:per_page => 20, :page => params[:page])
     else
-      @evaluations = ProfessorScore.select("AVG(professor_scores.score) as average_professor_score,"+
-                                           "AVG(course_scores.score) as average_course_score,"+
-                                           "professor_scores.course_id, courses.course_num,"+
-                                          " courses.name")
-                                   .group(['professor_scores.course_id', 'courses.course_num','courses.name'])
-                                   .search(params[:search])
-                                   .joins("INNER JOIN course_scores ON professor_scores.professor_id "+
-                                          "= course_scores.professor_id and professor_scores.course_id "+
-                                          "= course_scores.course_id and professor_scores.semester_id ="+
-                                          " course_scores.semester_id")
-                                   .joins(:professor,:course,:semester)
+      @evaluations = ProfessorScore.search_course(params[:search])
                                    .order(sort_column + ' ' + sort_direction)
                                    .paginate(:per_page => 20, :page => params[:page])
-      # @evaluations = Evaluation.select("AVG(evaluations.course_score) as average_course_score,"+
-      #                                "AVG(evaluations.teacher_score) as average_teacher_score,"+
-      #                                "evaluations.course_id AS course_id, courses.course_num AS "+
-      #                                "course_num, courses.name")
-      #                        .group(['course_id','course_num','courses.name'])
-      #                        .search(params[:search])
-      #                        .joins(:course,:semester,:professor)
-      #                        .order(sort_column + ' ' + sort_direction)
-      #                        .paginate(:per_page => 20, :page => params[:page])
     end
   end
 

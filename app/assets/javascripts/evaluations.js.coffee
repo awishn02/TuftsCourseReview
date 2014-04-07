@@ -88,7 +88,9 @@ $ ->
               }
         ]
     }
-    new Chart(ctx).Line(data,{})
+    chart = new Chart(ctx).Line(data,{graphMin: 1, graphMax: 5})
+    console.log(chart);
+    console.log(ctx);
     $("#"+legend_id).empty()
     legend(document.getElementById(legend_id),data)
 

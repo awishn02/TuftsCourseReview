@@ -9,7 +9,7 @@
       <div class="col-md-2"><%= sortable "course_num", "Course Number" %></div>
       <div class="col-md-3"><%= sortable "professors.name", "Instructor" %></div>
       <div class="col-md-2"><%= sortable "average_course_score", "Course Score" %></div>
-      <div class="col-md-2"><%= sortable "average_teacher_score", "Instructor Score" %></div>
+      <div class="col-md-2"><%= sortable "average_professor_score", "Instructor Score" %></div>
     </div>
     <% if params[:main_column] == "Professor" %>
       <% @evaluations.each do |evaluation| %>
@@ -60,7 +60,7 @@
       <% end %>
     <% else %>
       <% @evaluations.each do |evaluation| %>
-        <% if evaluation.course.department.opt_out == FALSE && evaluation.get_professor_data.length == 1 && evaluation.get_professor_data[0].professor.opt_out == FALSE%>
+        <% if evaluation.course.department.opt_out == FALSE && evaluation.get_professor_data.length >= 1 && evaluation.get_professor_data[0].professor.opt_out == FALSE%>
           <div class"outer-container">
             <div class="row course_eval_row">
               <div class="col-md-3"><%= evaluation.course.name %></div>

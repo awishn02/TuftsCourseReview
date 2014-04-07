@@ -31,7 +31,7 @@ describe EvaluationsController do
   let(:valid_session) { {} }
 
   describe "GET index" do
-    it "assigns all evaluations as @evaluations" do
+    it "assigns all professor_scores joined with course_scores as @evaluations" do
       evaluation = Evaluation.create! valid_attributes
       get :index, {}, valid_session
       expect(assigns(:evaluations)).to eq([evaluation])
