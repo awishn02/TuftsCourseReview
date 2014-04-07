@@ -256,13 +256,29 @@ $navygrey: #3b4b54;
   position: absolute;
   
   -webkit-animation: cubemove 4s infinite ease-in-out;
-  animation: cubemove 4s infinite;
+  -moz-animation: cubemove 4s infinite ease-in-out;
+  animation: cubemove 4s infinite ease-in-out;
+}
+
+@keyframes cubemove {
+  35%{
+    transform: scale(0.005);
+    -moz-transform: scale(0.005);
+  }
+  50%{
+    transform: scale(1.7);
+    -moz-transform: scale(1.7);
+  }
+  65%{
+    transform: scale(0.005);
+    -moz-transforM: scale(0.005);
+  }
 }
 
 @-webkit-keyframes cubemove {
-  35% { -webkit-transform:  scale(0.005) }
-50% { -webkit-transform:  scale(1.7) }
-  65% { -webkit-transform:  scale(0.005) }
+  35% {-webkit-transform:  scale(0.005)}
+50% {-webkit-transform:  scale(1.7)}
+  65% {-webkit-transform:  scale(0.005)}
 }
 
 @for $i from 1 through 15 {
@@ -271,15 +287,9 @@ $navygrey: #3b4b54;
     top: floor($i / 4) * $spacing;
     -webkit-animation-delay: (mod($i,4) + floor($i / 4)) * .2s;
     animation-delay: (mod($i,4) + floor($i / 4)) * .1s;
+    -moz-animation-delay: (mod($i,4)+floor($i/4)) * .1s;
     }
 }
-
-/*.cube1 {
-  top: -30px;
-  left: -30px;
-  -webkit-animation-delay: 1.1s;
-  animation-delay: .5s;
-}*/
 
 .spinner {
   margin: 100px auto;
@@ -287,3 +297,7 @@ $navygrey: #3b4b54;
   height: 100px;
   position: relative;
 }
+
+
+
+

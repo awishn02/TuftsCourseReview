@@ -31,9 +31,12 @@ $ ->
     $("#search_nav").addClass('show')
     $(".alert").addClass('hide')
     if($("#search_box").val().length > 1 || $("#search_box").val() == "")
-      $(".spinner").removeClass 'hide'
+      $("#evaluations").fadeToggle("fast", ->
+        $(".spinner").removeClass 'hide'
+      )
       $.get($("#evaluations_search").attr('action'), $('#evaluations_search').serialize(), ->
         $(".spinner").addClass 'hide'
+        $("#evaluations").fadeToggle()
       , 'script')
       return false
 
