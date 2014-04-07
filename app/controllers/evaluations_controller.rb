@@ -72,25 +72,25 @@ class EvaluationsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_evaluation
-      @evaluation = Evaluation.find(params[:id])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_evaluation
+    @evaluation = Evaluation.find(params[:id])
+  end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def evaluation_params
-      params.require(:evaluation).permit(:course_id, :professor_id, :course_score, :teacher_score)
-    end
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def evaluation_params
+    params.require(:evaluation).permit(:course_id, :professor_id, :course_score, :teacher_score)
+  end
 
-    def sort_column
-      Evaluation.column_names.include?(params[:sort]) || %w[courses.name professors.utln course_num semesters.name average_course_score average_teacher_score].include?(params[:sort]) ? params[:sort] : "course_num"
-    end
+  def sort_column
+    Evaluation.column_names.include?(params[:sort]) || %w[courses.name professors.utln course_num semesters.name average_course_score average_professor_score].include?(params[:sort]) ? params[:sort] : "course_num"
+  end
 
-    def sort_column_prof
-      Evaluation.column_names.include?(params[:sort]) || %w[courses.name professors.utln course_num semesters.name average_course_score average_teacher_score].include?(params[:sort]) ? params[:sort] : "professors.utln"
-    end
+  def sort_column_prof
+    Evaluation.column_names.include?(params[:sort]) || %w[courses.name professors.utln course_num semesters.name average_course_score average_professor_score].include?(params[:sort]) ? params[:sort] : "professors.utln"
+  end
 
-    def sort_direction
-      %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
-    end
+  def sort_direction
+    %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
+  end
 end
