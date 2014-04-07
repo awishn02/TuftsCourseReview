@@ -16,11 +16,21 @@ $ ->
     $.getScript(this.href)
     return false
 
+  typingTimer = 0
+  doneTypingInterval = 500
+
   $("#evaluations_search input").keyup ->
+    clearTimeout typingTimer
+    typingTimer = setTimeout doneTyping, doneTypingInterval
+
+  $("#evaluations_search input").keydown ->
+    clearTimeout typingTimer
+
+  doneTyping = ->
     $("#search_box, #title").removeClass("center")
     $("#search_nav").addClass('show')
     $(".alert").addClass('hide')
-    if($(this).val().length > 1 || $(this).val() == "")
+    if($("#search_box").val().length > 1 || $("#search_box").val() == "")
       $.get($("#evaluations_search").attr('action'), $('#evaluations_search').serialize(), null, 'script')
       return false
 
