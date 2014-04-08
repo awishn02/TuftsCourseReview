@@ -12,6 +12,8 @@
 #     return false
 
 $ ->
+  $(".spinner").hide()
+
   $("body").on 'click', '#evaluations .head_row a, #evaluations .pagination a', ->
     $.getScript(this.href)
     return false
@@ -34,11 +36,12 @@ $ ->
     if(($("#search_box").val().length > 1 || $("#search_box").val() == "") && $("#search_box").val() != prevSearch)
       prevSearch = $("#search_box").val()
       $("#evaluations").fadeToggle("fast", ->
-        # $(".spinner").removeClass 'hide'
+        $(".spinner").show()
       )
       $.get($("#evaluations_search").attr('action'), $('#evaluations_search').serialize(), ->
-        # $(".spinner").addClass 'hide'
-        $("#evaluations").fadeToggle()
+        $("#evaluations").fadeToggle("fast",->
+          $(".spinner").hide()
+        )
       , 'script')
       return false
 

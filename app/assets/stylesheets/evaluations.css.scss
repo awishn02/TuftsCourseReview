@@ -103,6 +103,7 @@ body {
   -webkit-border-radius: 3px;
   -moz-border-radius: 3px;
   background: #336ca6;
+  z-index:100;
 }
 
 .head_row, .professor_row, .course_eval_row{
@@ -292,10 +293,14 @@ $navygrey: #3b4b54;
 }
 
 .spinner {
-  margin: 100px auto;
   width: 100px;
   height: 100px;
-  position: relative;
+  position: absolute;
+  left: 50%;
+  margin-left: -50px;
+  top: 50%;
+  margin-top: -50px;
+  z-index: 10;
 }
 
 
