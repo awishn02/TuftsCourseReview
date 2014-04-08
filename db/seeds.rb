@@ -6,7 +6,7 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 require 'csv'
-DEP_NAME = 1
+DEP_NAME = 10
 DEP_CODE = 2
 SCHOOL_NAME = 7
 SEMESTER_NAME = 7
@@ -52,9 +52,11 @@ CSV.foreach("#{Rails.root}/student_evals_scrambled.csv") do |row|
     if !course.id
       course = Course.find_by_course_num(row[COURSE_NUM])
     end
-    prof_name = "N/A"
+    prof_name = ""
     if row[PROFESSOR_NAME]
       prof_name = row[PROFESSOR_NAME].split(',')
+    else
+      prof_name = ["","N/A"]
     end
     professor = Professor.create(
       :name => prof_name[1] + " " + prof_name[0],

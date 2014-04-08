@@ -30,7 +30,7 @@ class EvaluationsController < ApplicationController
   def ajax
     @id = params[:id]
     @main_column = params[:main_column]
-    if @main_column == "Professor"
+    if @main_column == "Instructor"
       @evals = ProfessorScore.get_course_data(@id)
     else
       @evals = ProfessorScore.get_professor_data(@id)
