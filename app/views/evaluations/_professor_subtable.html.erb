@@ -1,0 +1,32 @@
+<% @evals.each do |courseEval| %>
+  <a href="#" data-toggle="modal" class="professor_row_link" data-legend-id="legend-<%= courseEval.professor_id %>_<%= courseEval.course_id %>"
+    data-chart-data="<%= courseEval.get_semester_data.map {|i| [i.semester.name, i.average_course_score.to_s, i.average_professor_score.to_s]} %>"
+    data-chart-id="#chart-<%= courseEval.professor_id %>_<%= courseEval.course_id %>"
+    data-target="#modal-<%= courseEval.professor_id %>_<%= courseEval.course_id %>">
+    <div class="row professor_row">
+      <div class="col-md-3"><%= courseEval.course.name %></div>
+      <div class="col-md-2"><%= courseEval.course_num %></div>
+      <div class="col-md-3"><%= courseEval.professor.name %></div>
+      <div class="col-md-2"><%= courseEval.average_course_score.truncate(2) %></div>
+      <div class="col-md-2"><%= courseEval.average_professor_score.truncate(2) %></div>
+    </div>
+  </a>
+  <div class="modal fade" id="modal-<%= courseEval.professor_id %>_<%= courseEval.course_id %>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <h4 class="modal-title" id="myModalLabel"><b><%= courseEval.course.name %></b>: <%= courseEval.professor.name %></h4>
+        </div>
+        <div class="modal-body">
+          <canvas id="chart-<%= courseEval.professor_id %>_<%= courseEval.course_id %>" width="600" height="400"></canvas>
+          <div id="legend-<%= courseEval.professor_id %>_<%= courseEval.course_id %>" style="float:right;"></div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>
+

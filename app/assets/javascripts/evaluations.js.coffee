@@ -34,10 +34,10 @@ $ ->
     if(($("#search_box").val().length > 1 || $("#search_box").val() == "") && $("#search_box").val() != prevSearch)
       prevSearch = $("#search_box").val()
       $("#evaluations").fadeToggle("fast", ->
-        $(".spinner").removeClass 'hide'
+        # $(".spinner").removeClass 'hide'
       )
       $.get($("#evaluations_search").attr('action'), $('#evaluations_search').serialize(), ->
-        $(".spinner").addClass 'hide'
+        # $(".spinner").addClass 'hide'
         $("#evaluations").fadeToggle()
       , 'script')
       return false
@@ -53,8 +53,15 @@ $ ->
     return false
 
   $("body").on 'click', '.div_table .course_eval_row', ->
-    console.log $(this).parent()
-    $(this).parent().find('div.professor_rows').slideToggle()
+    id = $(this).data('id')
+    main_column = $(".button-group-item.active").text()
+    subtable_div = $(this).parent().find('div.professor_rows');
+    if !$.trim(subtable_div.html()).length
+      $.getScript('/ajax?id='+id+'&main_column='+main_column, ->
+        subtable_div.slideToggle()
+      )
+    else
+      subtable_div.slideToggle()
 
   sortByTerm = (a,b) ->
     yearA = a[0].split(" ")[1]

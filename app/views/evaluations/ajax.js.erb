@@ -1,0 +1,5 @@
+<% if @main_column == "Instructor" %>
+  $("#course_row_<%= @id %>").append("<%= escape_javascript render('professor_subtable') %>");
+<% else %>
+  $("#professor_row_<%= @id %>").append("<%= escape_javascript render('course_subtable') %>");
+<% end %>

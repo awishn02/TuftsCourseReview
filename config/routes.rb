@@ -13,6 +13,8 @@ CourseEvaluation::Application.routes.draw do
   get 'search/autocomplete_professor_name'
   root 'evaluations#index'
 
+  get '/ajax' => 'evaluations#ajax'
+
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

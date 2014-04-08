@@ -65,11 +65,12 @@ CSV.foreach("#{Rails.root}/student_evals_scrambled.csv") do |row|
     if !professor.id
       professor = Professor.find_by_utln(row[PROFESSOR_UTLN])
     end
-    if row[8].include? "instructor"
+    if row[QUESTION].include? "instructor"
       p = ProfessorScore.create(
         :professor_id => professor.id,
         :course_id => course.id,
         :semester_id => semester.id,
+        :department_id => dep.id,
         :score => row[SCORE],
         :total_reviews => 1
       )
@@ -84,6 +85,7 @@ CSV.foreach("#{Rails.root}/student_evals_scrambled.csv") do |row|
         :professor_id => professor.id,
         :course_id => course.id,
         :semester_id => semester.id,
+        :department_id => dep.id,
         :score => row[SCORE],
         :total_reviews => 1
       )
