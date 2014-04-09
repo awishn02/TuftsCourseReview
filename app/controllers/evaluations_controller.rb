@@ -7,21 +7,22 @@ class EvaluationsController < ApplicationController
   # GET /evaluations.json
   def index
     if params[:search]
+      page = params[:page] ? params[:page] : 1
       if params[:main_column] == "Professor"
-        @evaluations = Rails.cache.read(params[:search]+"Professor")
+        @evaluations = Rails.cache.read(params[:search]+"Professor"+page.to_s)
         if !@evaluations
           @evaluations = ProfessorScore.search(params[:search])
           .order(sort_column_prof + ' ' + sort_direction)
           .paginate(:per_page => 20, :page => params[:page])
-          Rails.cache.write(params[:search]+"Professor", @evaluations)
+          Rails.cache.write(params[:search]+"Professor"+page.to_s, @evaluations)
         end
       else
-        @evaluations = Rails.cache.read(params[:search]+"Course")
+        @evaluations = Rails.cache.read(params[:search]+"Course"+page.to_s)
         if !@evaluations
           @evaluations = ProfessorScore.search_course(params[:search])
           .order(sort_column + ' ' + sort_direction)
           .paginate(:per_page => 20, :page => params[:page])
-          Rails.cache.write(params[:search]+"Course", @evaluations)
+          Rails.cache.write(params[:search]+"Course"+page.to_s, @evaluations)
         end
       end
     end
