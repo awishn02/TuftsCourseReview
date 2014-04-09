@@ -1,6 +1,6 @@
 <% @evals.each do |courseEval| %>
   <a href="#" data-toggle="modal" class="professor_row_link" data-legend-id="legend-<%= courseEval.professor_id %>_<%= courseEval.course_id %>"
-    data-chart-data="<%= courseEval.get_semester_data.map {|i| [i.semester.name, i.average_course_score.to_s, i.average_professor_score.to_s]} %>"
+    data-chart-data="<%= courseEval.get_semester_data.map {|i| [i.semester_name, i.average_course_score.to_s, i.average_professor_score.to_s]} %>"
     data-chart-id="#chart-<%= courseEval.professor_id %>_<%= courseEval.course_id %>"
     data-target="#modal-<%= courseEval.professor_id %>_<%= courseEval.course_id %>">
     <div class="row professor_row">

@@ -8,21 +8,21 @@ class EvaluationsController < ApplicationController
   def index
     if params[:search]
       if params[:main_column] == "Professor"
-        # @evaluations = Rails.cache.read(params[:search]+"Professor")
-        # if !@evaluations
-        @evaluations = ProfessorScore.search(params[:search])
-        .order(sort_column_prof + ' ' + sort_direction)
-        .paginate(:per_page => 20, :page => params[:page])
-          # Rails.cache.write(params[:search]+"Professor", @evaluations)
-        # end
+        @evaluations = Rails.cache.read(params[:search]+"Professor")
+        if !@evaluations
+          @evaluations = ProfessorScore.search(params[:search])
+          .order(sort_column_prof + ' ' + sort_direction)
+          .paginate(:per_page => 20, :page => params[:page])
+          Rails.cache.write(params[:search]+"Professor", @evaluations)
+        end
       else
-        # @evaluations = Rails.cache.read(params[:search]+"Course")
-        # if !@evaluations
-        @evaluations = ProfessorScore.search_course(params[:search])
-        .order(sort_column + ' ' + sort_direction)
-        .paginate(:per_page => 20, :page => params[:page])
-          # Rails.cache.write(params[:search]+"Course", @evaluations)
-        # end
+        @evaluations = Rails.cache.read(params[:search]+"Course")
+        if !@evaluations
+          @evaluations = ProfessorScore.search_course(params[:search])
+          .order(sort_column + ' ' + sort_direction)
+          .paginate(:per_page => 20, :page => params[:page])
+          Rails.cache.write(params[:search]+"Course", @evaluations)
+        end
       end
     end
   end

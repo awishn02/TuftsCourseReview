@@ -87,8 +87,8 @@ class ProfessorScore < ActiveRecord::Base
     ProfessorScore.select("AVG(professor_scores.score) as average_professor_score,"+
                           "AVG(course_scores.score) as average_course_score,"+
                           "professor_scores.course_id,professor_scores.semester_id,"+
-                          " professor_scores.professor_id")
-    .group(['professor_scores.course_id',  'professor_scores.professor_id', 'professor_scores.semester_id'])
+                          " professor_scores.professor_id, semesters.name as semester_name")
+    .group(['professor_scores.course_id',  'professor_scores.professor_id', 'professor_scores.semester_id','semesters.name'])
     .where('professor_scores.professor_id = ? AND professor_scores.course_id = ?', self.professor_id, self.course_id)
     .joins("INNER JOIN course_scores ON professor_scores.professor_id "+
            "= course_scores.professor_id and professor_scores.course_id "+
