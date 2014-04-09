@@ -11,8 +11,9 @@ class ProfessorScore < ActiveRecord::Base
     if search && search != ""
       select("AVG(professor_scores.score) as average_professor_score,"+
              "AVG(course_scores.score) as average_course_score,"+
-             "professor_scores.professor_id, professors.utln")
-      .group(['professor_scores.professor_id', 'professors.utln'])
+             "professor_scores.professor_id, professors.utln,"+
+             "professors.name as professor_name")
+      .group(['professor_scores.professor_id', 'professors.utln','professors.name'])
       .where('(upper(courses.name) LIKE upper(?) OR upper(professors.name)' +
              ' LIKE upper(?) OR upper(courses.course_num) LIKE upper(?))' +
              ' and (professors.opt_out = false and departments.opt_out = false)',
@@ -36,8 +37,8 @@ class ProfessorScore < ActiveRecord::Base
     if search && search != ""
       select("AVG(professor_scores.score) as average_professor_score,"+
              "AVG(course_scores.score) as average_course_score,"+
-             "professor_scores.course_id, courses.course_num,"+
-             " courses.name")
+             "professor_scores.course_id, courses.course_num as course_num,"+
+             " courses.name as course_name")
       .group(['professor_scores.course_id', 'courses.course_num','courses.name'])
       .where('(upper(courses.name) LIKE upper(?) OR upper(professors.name)' +
              ' LIKE upper(?) OR upper(courses.course_num) LIKE upper(?))' +
@@ -63,18 +64,19 @@ class ProfessorScore < ActiveRecord::Base
     # prof_data = Rails.cache.read(self.course_id.to_s + "profdata")
     # if !prof_data
     ProfessorScore.select("AVG(professor_scores.score) as average_professor_score,"+
-                                      "AVG(course_scores.score) as average_course_score,"+
-                                      "professor_scores.course_id, courses.course_num,"+
-                                      " courses.name, professor_scores.professor_id,"+
-                                      " professors.utln")
-    .group(['professor_scores.course_id', 'courses.course_num','courses.name', 'professor_scores.professor_id', 'professors.utln'])
+                          "AVG(course_scores.score) as average_course_score,"+
+                          "professor_scores.course_id, courses.course_num,"+
+                          " courses.name as course_name, professor_scores.professor_id,"+
+                          " professors.utln", "professors.name as professor_name")
+    .group(['professor_scores.course_id', 'courses.course_num','courses.name', 'professor_scores.professor_id',
+            'professors.utln', 'professors.name'])
     .where('professor_scores.course_id = ?', id)
     .joins("INNER JOIN course_scores ON professor_scores.professor_id "+
            "= course_scores.professor_id and professor_scores.course_id "+
            "= course_scores.course_id and professor_scores.semester_id ="+
            " course_scores.semester_id")
     .joins(:professor,:course,:semester)
-      # Rails.cache.write(self.course_id.to_s + "profdata", prof_data)
+    # Rails.cache.write(self.course_id.to_s + "profdata", prof_data)
     # end
     # prof_data
   end
@@ -83,9 +85,9 @@ class ProfessorScore < ActiveRecord::Base
     # semester_data = Rails.cache.read(self.professor_id.to_s + "-" + self.course_id.to_s + "sem_data")
     # if !semester_data
     ProfessorScore.select("AVG(professor_scores.score) as average_professor_score,"+
-                                          "AVG(course_scores.score) as average_course_score,"+
-                                          "professor_scores.course_id,professor_scores.semester_id,"+
-                                          " professor_scores.professor_id")
+                          "AVG(course_scores.score) as average_course_score,"+
+                          "professor_scores.course_id,professor_scores.semester_id,"+
+                          " professor_scores.professor_id")
     .group(['professor_scores.course_id',  'professor_scores.professor_id', 'professor_scores.semester_id'])
     .where('professor_scores.professor_id = ? AND professor_scores.course_id = ?', self.professor_id, self.course_id)
     .joins("INNER JOIN course_scores ON professor_scores.professor_id "+
@@ -102,11 +104,12 @@ class ProfessorScore < ActiveRecord::Base
     # course_data = Rails.cache.read(self.professor_id.to_s + "coursedata")
     # if !course_Data
     ProfessorScore.select("AVG(professor_scores.score) as average_professor_score,"+
-                                        "AVG(course_scores.score) as average_course_score,"+
-                                        "professor_scores.course_id, courses.course_num,"+
-                                        " courses.name, professor_scores.professor_id,"+
-                                        " professors.utln")
-    .group(['professor_scores.course_id', 'courses.course_num','courses.name', 'professor_scores.professor_id', 'professors.utln'])
+                          "AVG(course_scores.score) as average_course_score,"+
+                          "professor_scores.course_id, courses.course_num,"+
+                          " courses.name as course_name, professor_scores.professor_id,"+
+                          " professors.utln, professors.name as professor_name")
+    .group(['professor_scores.course_id', 'courses.course_num','courses.name', 'professor_scores.professor_id',
+            'professors.utln', 'professors.name'])
     .where('professor_scores.professor_id = ?', id)
     .joins("INNER JOIN course_scores ON professor_scores.professor_id "+
            "= course_scores.professor_id and professor_scores.course_id "+

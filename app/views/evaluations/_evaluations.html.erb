@@ -8,7 +8,7 @@
       <div class="row head_row">
         <div class="col-md-3"><%= sortable "course_name", "Course Name" %></div>
         <div class="col-md-2"><%= sortable "course_num", "Course Number" %></div>
-        <div class="col-md-3"><%= sortable "professors.name", "Instructor" %></div>
+        <div class="col-md-3"><%= sortable "professor_name", "Instructor" %></div>
         <div class="col-md-2"><%= sortable "average_course_score", "Course Score" %></div>
         <div class="col-md-2"><%= sortable "average_professor_score", "Instructor Score" %></div>
       </div>
@@ -18,7 +18,7 @@
             <div class="row course_eval_row" data-id="<%= evaluation.professor_id %>">
               <div class="col-md-3">---</div>
               <div class="col-md-2">---</div>
-              <div class="col-md-3"><%= evaluation.professor.name %></div>
+              <div class="col-md-3"><%= evaluation.professor_name %></div>
               <div class="col-md-2"><%= evaluation.average_course_score.truncate(2) %></div>
               <div class="col-md-2"><%= evaluation.average_professor_score.truncate(2) %></div>
             </div>
@@ -30,7 +30,7 @@
         <% @evaluations.each do |evaluation| %>
           <div class"outer-container">
             <div class="row course_eval_row" data-id="<%= evaluation.course_id %>">
-              <div class="col-md-3"><%= evaluation.course.name %></div>
+              <div class="col-md-3"><%= evaluation.course_name %></div>
               <div class="col-md-2"><%= evaluation.course_num %></div>
               <div class="col-md-3">---</div>
               <div class="col-md-2"><%= evaluation.average_course_score.truncate(2) %></div>

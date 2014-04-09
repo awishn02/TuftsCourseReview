@@ -4,9 +4,9 @@
     data-chart-id="#chart-<%= courseEval.professor_id %>_<%= courseEval.course_id %>"
     data-target="#modal-<%= courseEval.professor_id %>_<%= courseEval.course_id %>">
     <div class="row professor_row">
-      <div class="col-md-3"><%= courseEval.course.name %></div>
+      <div class="col-md-3"><%= courseEval.course_name %></div>
       <div class="col-md-2"><%= courseEval.course_num %></div>
-      <div class="col-md-3"><%= courseEval.professor.name %></div>
+      <div class="col-md-3"><%= courseEval.professor_name %></div>
       <div class="col-md-2"><%= courseEval.average_course_score.truncate(2) %></div>
       <div class="col-md-2"><%= courseEval.average_professor_score.truncate(2) %></div>
     </div>
@@ -16,7 +16,7 @@
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-          <h4 class="modal-title" id="myModalLabel"><b><%= courseEval.course.name %></b>: <%= courseEval.professor.name %></h4>
+          <h4 class="modal-title" id="myModalLabel"><b><%= courseEval.course_name %></b>: <%= courseEval.professor_name %></h4>
         </div>
         <div class="modal-body">
           <canvas id="chart-<%= courseEval.professor_id %>_<%= courseEval.course_id %>" width="600" height="400"></canvas>
