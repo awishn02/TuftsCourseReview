@@ -102,7 +102,7 @@ class ProfessorScore < ActiveRecord::Base
 
   def self.get_course_data(id)
     course_data = Rails.cache.read(id.to_s + "coursedata")
-    if !course_Data
+    if !course_data
       course_data = ProfessorScore.select("AVG(professor_scores.score) as average_professor_score,"+
                                           "AVG(course_scores.score) as average_course_score,"+
                                           "professor_scores.course_id, courses.course_num,"+
