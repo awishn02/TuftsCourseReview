@@ -4,6 +4,7 @@ class ProfessorScore < ActiveRecord::Base
   belongs_to :semester
   belongs_to :department
   validates_uniqueness_of :course_id, :scope => [:professor_id, :semester_id]
+  validates :course_id, :professor_id, :semester_id, :department_id, :score, :total_reviews, presence: true
   after_save :expire_cache
   after_destroy :expire_cache
 

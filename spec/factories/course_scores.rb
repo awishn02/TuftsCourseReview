@@ -5,6 +5,8 @@ FactoryGirl.define do
     prof_id 1
     course_id 1
     semester_id 1
-    score "9.99"
+    department_id 1
+    score "10"
+    total_reviews 5
   end
 end

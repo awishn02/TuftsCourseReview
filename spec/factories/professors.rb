@@ -2,7 +2,8 @@
 
 FactoryGirl.define do
   factory :professor do
-    name "MyString"
-    department_id ""
+    name "Mr. Professor"
+    department_id 1
+    utln "prof01"
   end
 end

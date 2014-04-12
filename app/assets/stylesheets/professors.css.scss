@@ -19,3 +19,30 @@ a.btn:hover {
   width: 50%;
   max-width: 300px;
 }
+
+#professors_search {
+  width: 50%;
+  display: inline;
+}
+
+#professor_search_nav.show {
+  width: 100%;
+  padding: 10px;
+  background: rgb(241,241,241);
+}
+
+#professor_search_box {
+  display: inline;
+  width: 45%;
+  vertical-align: bottom;
+  height: 30px;
+  font-size: 20px;
+  margin-left: 30px;
+  box-shadow: none;
+  border-style: none;
+}
+
+#professor_title {
+  display: inline;
+  vertical-align: bottom;
+}
