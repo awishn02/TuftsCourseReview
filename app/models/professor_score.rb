@@ -12,6 +12,9 @@ class ProfessorScore < ActiveRecord::Base
     if search && search != ""
       select("AVG(professor_scores.score) as average_professor_score,"+
              "AVG(course_scores.score) as average_course_score,"+
+             "SUM(course_scores.total_enrollment) as total_enrollment,"+
+             "SUM(course_scores.total_reviews) as total_course_reviews,"+
+             "SUM(professor_scores.total_reviews) as total_professor_reviews,"+
              "professor_scores.professor_id, professors.utln,"+
              "professors.name as professor_name")
       .group(['professor_scores.professor_id', 'professors.utln','professors.name'])
@@ -25,12 +28,20 @@ class ProfessorScore < ActiveRecord::Base
              " course_scores.semester_id")
       .joins(:professor,:course,:semester,:department)
     else
-      where('1=0')
+      select("AVG(professor_scores.score) as average_professor_score,"+
+             "AVG(course_scores.score) as average_course_score,"+
+             "SUM(course_scores.total_enrollment) as total_enrollment,"+
+             "SUM(course_scores.total_reviews) as total_course_reviews,"+
+             "SUM(professor_scores.total_reviews) as total_professor_reviews,"+
+             "professor_scores.professor_id, professors.utln,"+
+             "professors.name as professor_name")
+      .group(['professor_scores.professor_id', 'professors.utln','professors.name'])
+      .where('1=1')
       .joins("INNER JOIN course_scores ON professor_scores.professor_id "+
              "= course_scores.professor_id and professor_scores.course_id "+
              "= course_scores.course_id and professor_scores.semester_id ="+
              " course_scores.semester_id")
-      .joins(:professor,:course,:semester)
+      .joins(:professor,:course,:semester,:department)
     end
   end
 
@@ -38,6 +49,9 @@ class ProfessorScore < ActiveRecord::Base
     if search && search != ""
       select("AVG(professor_scores.score) as average_professor_score,"+
              "AVG(course_scores.score) as average_course_score,"+
+             "SUM(course_scores.total_enrollment) as total_enrollment,"+
+             "SUM(course_scores.total_reviews) as total_course_reviews,"+
+             "SUM(professor_scores.total_reviews) as total_professor_reviews,"+
              "professor_scores.course_id, courses.course_num as course_num,"+
              " courses.name as course_name")
       .group(['professor_scores.course_id', 'courses.course_num','courses.name'])
@@ -52,12 +66,20 @@ class ProfessorScore < ActiveRecord::Base
              " course_scores.department_id")
       .joins(:professor,:course,:semester,:department)
     else
-      where('1=0')
+      select("AVG(professor_scores.score) as average_professor_score,"+
+             "AVG(course_scores.score) as average_course_score,"+
+             "SUM(course_scores.total_enrollment) as total_enrollment,"+
+             "SUM(course_scores.total_reviews) as total_course_reviews,"+
+             "SUM(professor_scores.total_reviews) as total_professor_reviews,"+
+             "professor_scores.course_id, courses.course_num as course_num,"+
+             " courses.name as course_name")
+      .group(['professor_scores.course_id', 'courses.course_num','courses.name'])
+      .where('1=1')
       .joins("INNER JOIN course_scores ON professor_scores.professor_id "+
              "= course_scores.professor_id and professor_scores.course_id "+
              "= course_scores.course_id and professor_scores.semester_id ="+
              " course_scores.semester_id")
-      .joins(:professor,:course,:semester)
+      .joins(:professor,:course,:semester,:department)
     end
   end
 
@@ -66,6 +88,9 @@ class ProfessorScore < ActiveRecord::Base
     if !prof_data
       prof_data = ProfessorScore.select("AVG(professor_scores.score) as average_professor_score,"+
                                         "AVG(course_scores.score) as average_course_score,"+
+                                        "SUM(course_scores.total_enrollment) as total_enrollment,"+
+                                        "SUM(course_scores.total_reviews) as total_course_reviews,"+
+                                        "SUM(professor_scores.total_reviews) as total_professor_reviews,"+
                                         "professor_scores.course_id, courses.course_num,"+
                                         " courses.name as course_name, professor_scores.professor_id,"+
                                         " professors.utln", "professors.name as professor_name")
@@ -87,6 +112,9 @@ class ProfessorScore < ActiveRecord::Base
     if !semester_data
       semester_data = ProfessorScore.select("AVG(professor_scores.score) as average_professor_score,"+
                                             "AVG(course_scores.score) as average_course_score,"+
+                                            "SUM(course_scores.total_enrollment) as total_enrollment,"+
+                                            "SUM(course_scores.total_reviews) as total_course_reviews,"+
+                                            "SUM(professor_scores.total_reviews) as total_professor_reviews,"+
                                             "professor_scores.course_id,professor_scores.semester_id,"+
                                             " professor_scores.professor_id, semesters.name as semester_name")
       .group(['professor_scores.course_id',  'professor_scores.professor_id', 'professor_scores.semester_id','semesters.name'])
@@ -106,6 +134,9 @@ class ProfessorScore < ActiveRecord::Base
     if !course_data
       course_data = ProfessorScore.select("AVG(professor_scores.score) as average_professor_score,"+
                                           "AVG(course_scores.score) as average_course_score,"+
+                                          "SUM(course_scores.total_enrollment) as total_enrollment,"+
+                                          "SUM(course_scores.total_reviews) as total_course_reviews,"+
+                                          "SUM(professor_scores.total_reviews) as total_professor_reviews,"+
                                           "professor_scores.course_id, courses.course_num,"+
                                           " courses.name as course_name, professor_scores.professor_id,"+
                                           " professors.utln, professors.name as professor_name")

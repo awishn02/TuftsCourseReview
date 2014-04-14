@@ -33,7 +33,7 @@ $ ->
     $("#search_box, #title").removeClass("center")
     $("#search_nav").addClass('show')
     $(".alert").addClass('hide')
-    if(($("#search_box").val().length > 1 || $("#search_box").val() == "") && $("#search_box").val() != prevSearch)
+    if($("#search_box").val() != prevSearch)
       prevSearch = $("#search_box").val()
       $("#evaluations").fadeToggle("fast", ->
         $(".spinner").show()
