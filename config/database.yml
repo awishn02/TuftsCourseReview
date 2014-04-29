@@ -48,7 +48,11 @@ test:
   pool: 5
 
 production:
-  adapter: postgresql
-  encoding: unicode
-  database: CourseEvaluation_production
+  adapter: mysql2
+  encoding: utf8 
+  database: atfevalpilot
   pool: 5
+  username: evalpilot
+  password: Phasw4He
+  host: 127.0.0.1
+

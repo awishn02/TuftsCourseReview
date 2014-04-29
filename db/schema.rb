@@ -13,14 +13,11 @@
 
 ActiveRecord::Schema.define(version: 20140408181421) do
 
-  # These are extensions that must be enabled in order to support this database
-  enable_extension "plpgsql"
-
   create_table "course_scores", force: true do |t|
     t.integer  "professor_id"
     t.integer  "course_id"
     t.integer  "semester_id"
-    t.decimal  "score"
+    t.decimal  "score",         precision: 10, scale: 0
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "total_reviews"
@@ -59,7 +56,7 @@ ActiveRecord::Schema.define(version: 20140408181421) do
     t.integer  "professor_id"
     t.integer  "course_id"
     t.integer  "semester_id"
-    t.decimal  "score"
+    t.decimal  "score",         precision: 10, scale: 0
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "total_reviews"
