@@ -16,6 +16,7 @@ PROFESSOR_NAME = 4
 PROFESSOR_UTLN = 9
 QUESTION = 8
 SCORE = 12
+TOTAL_ENROLLMENT = 5
 
 first = true
 i = 0
@@ -74,7 +75,8 @@ CSV.foreach("#{Rails.root}/student_evals_scrambled.csv") do |row|
         :semester_id => semester.id,
         :department_id => dep.id,
         :score => row[SCORE],
-        :total_reviews => 1
+        :total_reviews => 1,
+        :total_enrollment => row[TOTAL_ENROLLMENT]
       )
       if !p.id
         p = ProfessorScore.find_by_course_id_and_professor_id_and_semester_id(course.id, professor.id, semester.id)
@@ -89,7 +91,8 @@ CSV.foreach("#{Rails.root}/student_evals_scrambled.csv") do |row|
         :semester_id => semester.id,
         :department_id => dep.id,
         :score => row[SCORE],
-        :total_reviews => 1
+        :total_reviews => 1,
+        :total_enrollment => row[TOTAL_ENROLLMENT]
       )
 
       if !c.id

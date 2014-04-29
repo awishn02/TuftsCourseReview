@@ -1,17 +1,16 @@
-<h1>Listing professors</h1>
-
-<div class="div_table" id="professors">
-  <div class="row head_row">
-    <div class="col-md-3">Name</div>
-    <div class="col-md-3">Department</div>
-    <div class="col-md-3">Opting Out?</div>
+<%= form_tag professors_path, :method => "get", :id => "professors_search" do %>
+  <div id="professor_search_nav" class="show">
+    <h1 id="professor_title">Listing professors</h1>
+    <%= text_field_tag :search, params[:search], :id => "professor_search_box", :placeholder => "Search for an instructor by username or name" %>
   </div>
-  <% @professors.each do |professor| %>
-    <div class="row course_eval_row">
-      <div class="col-md-3"><%= professor.name %></div>
-      <div class="col-md-3"><%= professor.department.name %></div>
-      <div class="col-md-3"><%= professor.opt_out ? "Yes": "No" %></div>
-      <div class="col-md-3"><%= link_to 'Opt Out', edit_professor_path(professor), :class => "btn btn-danger opt_out_link", "data-target" => professor.id, "data-opt_out" => professor.opt_out %></div>
+
+  <div class="div_table">
+    <div class="row head_row">
+      <div class="col-md-3">Name</div>
+      <div class="col-md-3">Department</div>
+      <div class="col-md-2">UTLN</div>
+      <div class="col-md-2">Opting Out?</div>
     </div>
-  <% end %>
-</div>
+    <div id="professors"><%= render 'professors' %></div>
+  </div>
+<% end %>

@@ -2,9 +2,11 @@
 
 FactoryGirl.define do
   factory :professor_score do
-    prof_id 1
+    association :professor
     course_id 1
     semester_id 1
-    score "9.99"
+    department_id 1
+    score "10"
+    total_reviews 10
   end
 end

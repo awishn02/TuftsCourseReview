@@ -7,8 +7,8 @@
       <div class="col-md-3"><%= courseEval.course_name %></div>
       <div class="col-md-2"><%= courseEval.course_num %></div>
       <div class="col-md-3"><%= courseEval.professor_name %></div>
-      <div class="col-md-2"><%= courseEval.average_course_score.truncate(2) %></div>
-      <div class="col-md-2"><%= courseEval.average_professor_score.truncate(2) %></div>
+      <div class="col-md-2"><%= courseEval.average_course_score.truncate(2) %> <span class="responses">(<%= courseEval.total_course_reviews.to_s + "/" + courseEval.total_enrollment.to_s %>)</span></div>
+      <div class="col-md-2"><%= courseEval.average_professor_score.truncate(2) %><span class="responses">(<%= courseEval.total_course_reviews.to_s + "/" + courseEval.total_enrollment.to_s %>)</span></div>
     </div>
   </a>
   <div class="modal fade" id="modal-<%= courseEval.professor_id %>_<%= courseEval.course_id %>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">

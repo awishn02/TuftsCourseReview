@@ -1,0 +1,10 @@
+<% @professors.each do |professor| %>
+  <div class="row course_eval_row">
+    <div class="col-md-3"><%= professor.name %></div>
+    <div class="col-md-3"><%= professor.department.name %></div>
+    <div class="col-md-2"><%= professor.utln %></div>
+    <div class="col-md-2"><%= professor.opt_out ? "Yes": "No" %></div>
+    <div class="col-md-2"><%= link_to 'Opt Out', edit_professor_path(professor), :class => "btn btn-danger opt_out_link", "data-target" => professor.id, "data-opt_out" => professor.opt_out %></div>
+  </div>
+<% end %>
+<%= will_paginate @evaluations %>
