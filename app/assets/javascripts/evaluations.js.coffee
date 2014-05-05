@@ -49,6 +49,7 @@ $ ->
     # $("#search_box").val('')
     search_text = $("#search_box").val()
     $(".button-group-item").toggleClass('active')
+    console.log this.href
     $.getScript(this.href+"&search="+search_text)
     return false
 
@@ -57,10 +58,12 @@ $ ->
 
   $("body").on 'click', '.div_table .course_eval_row', ->
     id = $(this).data('id')
+    console.log this.href
     main_column = $(".button-group-item.active").text()
     subtable_div = $(this).parent().find('div.professor_rows');
+    url = document.URL+'/ajax?id='+id+'&main_column='+main_column
     if !$.trim(subtable_div.html()).length
-      $.getScript('/ajax?id='+id+'&main_column='+main_column, ->
+      $.getScript(url, ->
         subtable_div.slideToggle()
       )
     else
